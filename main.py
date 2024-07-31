@@ -39,7 +39,7 @@ while run:
     for blob in blobs:
         blob.draw(window)
 
-    print(mousepos)
+    print(mousepos
 
 
 

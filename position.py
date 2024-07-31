@@ -19,8 +19,11 @@ class Position:
         return hypot(self.x, self.y)
 
     def normalize(self):
-        self.x /= self.modulus()
-        self.y /= self.modulus()
+        if self.modulus() != 0:
+            self.x /= self.modulus()
+            self.y /= self.modulus()
+
+        return self
 
     def __mul__(self, n: int):
         return Position(self.x * n, self.y * n)

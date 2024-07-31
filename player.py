@@ -8,7 +8,7 @@ from operator import sub
 
 
 class Player:
-    def __init__(self, position: Position, size: int=1, name: str = "No Name"):
+    def __init__(self, position: Position, size: int=20, name: str = "No Name"):
         self.surface = pygame.Surface((size * 2, size * 2))
         self.position = position
         self.size = size #pygame.mouse.get_pos()
@@ -21,9 +21,9 @@ class Player:
 
     def draw(self, surface: pygame.Surface):
 
-        pygame.draw.circle(surface, (255, 0, 255), self.position, self.size, width=0)
+        pygame.draw.circle(surface, (255, 0, 255), (self.position.x, self.position.y), self.size, width=0)
         #surface.blit(self.surface, self.position)
 
     def update(self):
         mouse_position = Position(*pygame.mouse.get_pos())
-        self.position += mouse_position.normalize() * 20
+        self.position += mouse_position.normalize() * 5

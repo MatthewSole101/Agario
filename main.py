@@ -6,7 +6,7 @@ import pygame
 
 from player import Player
 from blob import Blob
-
+from position import Position
 
 pygame.init()
 
@@ -14,7 +14,7 @@ pygame.init()
 
 run = True
 
-blobs = [Blob((random.randint(1, 500), random.randint(1, 500)),  random.randint(1, 5)) for x in range(5)]
+blobs = [Blob((random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(5)]
 
 window = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
@@ -27,7 +27,7 @@ player1y = 200
 player1width = 10
 player1height = 10
 
-player = Player()
+player = Player(Position(250, 250))
 
 while run:
     #Delay
@@ -39,10 +39,10 @@ while run:
     for blob in blobs:
         blob.draw(window)
 
-    print(mousepos
+    print(mousepos)
 
-
-
+    player.update()
+    player.draw(window)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -55,11 +55,6 @@ while run:
     clock.tick(FPS)
 
 pygame.quit()
-
-
-
-
-
 
 
 

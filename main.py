@@ -14,7 +14,7 @@ pygame.init()
 
 run = True
 
-blobs = [Blob((random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(5)]
+blobs = [Blob(Position(random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(5)]
 
 window = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
@@ -37,7 +37,13 @@ while run:
     window.fill("White")
 
     for blob in blobs:
+        if player.collide(blob):
+            player.size += 1
+            blob.randomly_reposition()
+            #blob.consumed = True
         blob.draw(window)
+
+    #blobs = [blob for blob in blobs if not blob.consumed]
 
     print(mousepos)
 

@@ -9,12 +9,11 @@ from blob import Blob
 from position import Position
 
 pygame.init()
-
-
-
 run = True
 
-blobs = [Blob(Position(random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(5)]
+
+blobs = [Blob(Position(random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(10)]
+
 
 window = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
@@ -29,19 +28,23 @@ player1height = 10
 
 player = Player(Position(250, 250))
 
+
 while run:
-    #Delay
-    #pygame.time.delay(10)
+
     mousepos = pygame.mouse.get_pos()
 
     window.fill("White")
+
+
 
     for blob in blobs:
         if player.collide(blob):
             player.size += 1
             blob.randomly_reposition()
             #blob.consumed = True
-        blob.draw(window)
+
+        random_colour = blob.randomcolour()
+        blob.draw(window, random_colour)
 
     #blobs = [blob for blob in blobs if not blob.consumed]
 
@@ -54,6 +57,11 @@ while run:
         if event.type == pygame.QUIT:
             #quits game
             run = False
+
+    print(mousepos)
+
+    player.update()
+    player.draw(window)
 
     key = pygame.key.get_pressed()
 

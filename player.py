@@ -26,4 +26,4 @@ class Player:
 
     def update(self):
         mouse_position = Position(*pygame.mouse.get_pos())
-        self.position += mouse_position.normalize() * 5
+        self.position += (mouse_position - self.position).normalize() * 2

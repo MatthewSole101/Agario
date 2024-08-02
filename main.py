@@ -16,6 +16,7 @@ blobs = [Blob(Position(random.randint(10, 450), random.randint(1, 500)),  random
 
 
 window = pygame.display.set_mode((500, 500))
+image = pygame.image.load('richard.png')
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -36,11 +37,14 @@ font = pygame.font.SysFont('Comic Sans', 10)
 
 start_time = time.time()
 
+
 while run:
 
     mousepos = pygame.mouse.get_pos()
 
-    window.fill("White")
+    # window.fill("White")
+    window.blit(image, (0, 0))
+
 
 
 
@@ -60,15 +64,18 @@ while run:
 
     print(mousepos)
 
+
     player.update()
     player.draw(window)
 
 
-    size_text = font.render('Size: ' + str(player.size), True, (000, 000, 000))
+
+    size_text = font.render('Size: ' + str(player.size), True, (255, 255, 255))
     window.blit(size_text, (0, 0))
 
-    time_text = font.render('Time: ' + str(round(time.time() - start_time, 1)), True, (000, 000, 000))
+    time_text = font.render('Time: ' + str(round(time.time() - start_time, 1)), True, (255, 255, 255))
     window.blit(time_text, (250, 0))
+
 
 
     for event in pygame.event.get():
@@ -80,10 +87,12 @@ while run:
 
     key = pygame.key.get_pressed()
 
+
     pygame.display.update()
     clock.tick(FPS)
 end_time = time.time()
 print(round(end_time - start_time, 1), ' seconds')
+print('Total size: ' + str(player.size))
 
 pygame.quit()
 

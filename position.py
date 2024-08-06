@@ -7,6 +7,8 @@ class Position:
         self.x = x
         self.y = y
 
+    def tuple(self):
+        return self.x, self.y
     def __sub__(self, other: Self) -> Self:
         return Position(self.x - other.x, self.y - other.y)
 

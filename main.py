@@ -3,6 +3,7 @@ from typing import Tuple
 import random
 import time
 import pygame
+from pygame import Surface, transform
 
 from player import Player
 from blob import Blob
@@ -12,10 +13,11 @@ pygame.init()
 run = True
 
 
-blobs = [Blob(Position(random.randint(10, 450), random.randint(1, 500)),  random.randint(5, 10)) for x in range(10)]
+blobs = [Blob(Position(random.randint(10, 2450), random.randint(1, 2450)),  random.randint(5, 10)) for x in range(100)]
 
 
 window = pygame.display.set_mode((500, 500))
+background = Surface((2500, 2500))
 image = pygame.image.load('richard.png')
 clock = pygame.time.Clock()
 FPS = 60
@@ -37,26 +39,28 @@ font = pygame.font.SysFont('Comic Sans', 10)
 
 start_time = time.time()
 
+camera_offset = Position(-1250, -1250)
+
 
 while run:
 
     mousepos = pygame.mouse.get_pos()
 
-    # window.fill("White")
-    window.blit(image, (0, 0))
+    window.fill("White")
+    background.fill("White")
+    #window.blit(image, (0, 0))
 
-
-
-
+    camera_offset -= (Position(*mousepos) - Position(250, 250)).normalize() * 2
     for blob in blobs:
-        if player.collide(blob):
+        if player.collide(blob, camera_offset):
 
             player.size += blob.size
             blob.randomly_reposition()
             #blob.consumed = True
 
-        random_colour = blob.randomcolour()
-        blob.draw(window, random_colour)
+            blob.colour = blob.randomcolour()
+
+        blob.draw(background)
 
 
 
@@ -65,6 +69,8 @@ while run:
     print(mousepos)
 
 
+
+    window.blit(background, camera_offset.tuple())
     player.update()
     player.draw(window)
 

@@ -14,8 +14,10 @@ class Player:
         self.size = size #pygame.mouse.get_pos()
         self.name = name
 
-    def collide(self, other) -> bool:
-        dist = self.position.dist(other.position)  #math.hypot(*map(sub, self.position, other.position))
+    def collide(self, other, offset=None) -> bool:
+        if offset is None: offset = Position(0,0)
+
+        dist = self.position.dist(other.position + offset)  #math.hypot(*map(sub, self.position, other.position))
 
         return dist <= self.size + other.size
 
